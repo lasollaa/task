@@ -1,0 +1,53 @@
+<section>
+    <h1 class="my-3">register now</h1>
+
+    <form [formGroup]="registerForm" (ngSubmit)="handleForm()">
+
+
+        <div class="form-item">
+            <label for="name">name</label>
+            <input formControlName="name" type="text" class="form-control" id="">
+        </div>
+        <div *ngIf="registerForm.get('name')?.errors && registerForm.get('name')?.touched" class="alert alert-danger p-1 small w-50 mx-auto">
+            <p *ngIf="registerForm.get('name')?.getError('required')">name is required</p>
+        </div>
+
+        <div class="form-item">
+            <label for="email">email</label>
+            <input formControlName="email" type="email" class="form-control" id="email">
+        </div>
+        <div *ngIf="registerForm.get('email')?.errors && registerForm.get('email')?.touched" class="alert alert-danger p-1 small w-50 mx-auto">
+            <p *ngIf="registerForm.get('email')?.getError('required')">email is required</p>
+        </div>
+
+        <div class="form-item">
+            <label for="password">password</label>
+            <input formControlName="password" type="password" class="form-control" id="password">
+        </div>
+        <div *ngIf="registerForm.get('password')?.errors && registerForm.get('password')?.touched" class="alert alert-danger p-1 small w-50 mx-auto">
+            <p *ngIf="registerForm.get('password')?.getError('required')">password is required</p>
+        </div>
+
+
+        <div class="form-item">
+            <label for="rePassword">rePassword</label>
+            <input formControlName="rePassword" type="rePassword" class="form-control" id="rePassword">
+        </div>
+        <div *ngIf="registerForm.get('rePassword')?.errors && registerForm.get('rePassword')?.touched" class="alert alert-danger p-1 small w-50 mx-auto">
+            <p *ngIf="registerForm.get('rePassword')?.getError('required')">rePassword is required</p>
+        </div>
+
+
+        <div class="form-item">
+            <label for="phone">phone</label>
+            <input formControlName="phone" type="phone" class="form-control" id="phone">
+        </div>
+        <div *ngIf="registerForm.get('phone')?.errors && registerForm.get('phone')?.touched" class="alert alert-danger p-1 small w-50 mx-auto">
+            <p *ngIf="registerForm.get('phone')?.getError('required')">phone is required</p>
+        </div>
+
+        <button [disabled]="registerForm.invalid" class="main-btn my-5">Register</button>
+
+        <p *ngIf="errMsg" class="alert alert-danger p-1 w-50 mx-auto mb-0 text-center">{{errMsg}}</p>
+    </form>
+</section>

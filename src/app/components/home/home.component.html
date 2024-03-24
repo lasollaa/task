@@ -1,0 +1,84 @@
+<section class="py-3">
+    <div class="row g-0 w-50 m-auto">
+        <div class="col-md-9">
+            <owl-carousel-o [options]="mainslideOptions">
+                <ng-template carouselSlide>
+                    <img height="400" width="50" src="./assets/1.png" alt="slide1">
+                </ng-template>  
+                <ng-template carouselSlide>
+                    <img height="400" width="50" src="./assets/2.png" alt="slide2">
+                </ng-template> 
+                <ng-template carouselSlide>
+                    <img height="400" width="50" src="./assets/3.png" alt="slide3">
+                </ng-template> 
+
+              </owl-carousel-o>
+        </div>
+        <div class="col-md-3">
+            <img class="w-200" height="400" src="./assets/00.png" alt="main">
+        </div>
+    </div>
+</section>
+
+<section class="py-4" *ngIf="categories.length > 0">
+    <h2 class="text-center py-3 text-main">Popular category</h2>
+
+    <owl-carousel-o [options]="categoryOptions">
+
+        <ng-container *ngFor="let category of categories">
+          <ng-template carouselSlide>
+            <img height="350"
+             [src]="category.image" [alt]="category.name" [title]="category.name">
+            <h3 class="h6 text-main">{{category.name}}</h3>
+          </ng-template>
+        </ng-container>
+    
+      </owl-carousel-o>
+
+</section>
+
+<section class="py-4" *ngIf="products.length > 0">
+    <h2 class="text-center py-3 text-main">Popular Products</h2>
+
+
+    <input type="text" class="form-control w-50 mx-auto form-control-sm my-5" placeholder="Search.." [(ngModel)]="term">
+
+
+
+    <div class="row g-4">
+        <div *ngFor="let product of products | search: term
+        | slice :0:18" 
+        class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+            <div class="product h-100">
+                <i *ngIf="!wishListData.includes($any(product._id))" (click)="addFav(product._id)" class="fa-regular fa-heart heart"></i>
+                <i *ngIf="wishListData.includes($any(product._id))" (click)="removeFav(product._id)" class="fa-solid fa-heart heart"></i>
+
+
+                <header role="button" [routerLink]="['/productdetails',product._id]">
+                    <img
+                    class="w-100"
+                   [src]="product.imageCover" 
+                   [title]="product.title" 
+                   [alt]="product.title">
+   
+                   <h3 class="h6">{{product.title | cuttext : 3}}</h3>
+                   <h4 class="h6 text-main">{{product.category.name}}</h4>
+                   <div class="d-flex align-items-center justify-content-between">
+                       <span class="small">{{product.price | currency:'EGP'}}</span>
+                       <span>
+                           <i class="fas fa-star rating-color"></i>
+                           <span class="text-muted">{{product.ratingsAverage}}</span>
+                       </span>
+                   </div>
+                </header>
+
+
+                <footer>
+                    <button (click)="addProduct(product._id)" class="main-btn w-100">+Add To Cart</button>
+                </footer>
+
+            </div>
+        </div>
+    </div>
+
+</section>
